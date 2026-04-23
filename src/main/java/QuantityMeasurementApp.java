@@ -2,51 +2,11 @@ package com.quantity;
 
 public class QuantityMeasurementApp {
 
-    // 🔹 FEET CLASS (same as UC1)
-    public static class Feet {
-        private final double value;
-
-        public Feet(double value) {
-            this.value = value;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (obj == null || getClass() != obj.getClass()) return false;
-            Feet other = (Feet) obj;
-            return Double.compare(this.value, other.value) == 0;
-        }
-    }
-
-    // 🔹 INCHES CLASS (NEW FOR UC2)
-    public static class Inches {
-        private final double value;
-
-        public Inches(double value) {
-            this.value = value;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (obj == null || getClass() != obj.getClass()) return false;
-            Inches other = (Inches) obj;
-            return Double.compare(this.value, other.value) == 0;
-        }
-    }
-
-    // 🔹 OPTIONAL METHODS (better design)
-    public static boolean compareFeet(double a, double b) {
-        return new Feet(a).equals(new Feet(b));
-    }
-
-    public static boolean compareInches(double a, double b) {
-        return new Inches(a).equals(new Inches(b));
-    }
-
     public static void main(String[] args) {
-        System.out.println("Feet Equal: " + compareFeet(1.0, 1.0));
-        System.out.println("Inches Equal: " + compareInches(1.0, 1.0));
+
+        Quantity q1 = new Quantity(1.0, LengthUnit.FEET);
+        Quantity q2 = new Quantity(12.0, LengthUnit.INCH);
+
+        System.out.println("Equal: " + q1.equals(q2));
     }
 }

@@ -3,65 +3,59 @@ package com.quantity;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class QuantityMeasurementAppTest {
-
-    // ✅ FEET TESTS (UC1)
+class QuantityTest {
 
     @Test
-    void testFeet_SameValue() {
-        assertTrue(new QuantityMeasurementApp.Feet(1.0)
-                .equals(new QuantityMeasurementApp.Feet(1.0)));
+    void testEquality_FeetToFeet_SameValue() {
+        assertTrue(new Quantity(1.0, LengthUnit.FEET)
+                .equals(new Quantity(1.0, LengthUnit.FEET)));
     }
 
     @Test
-    void testFeet_DifferentValue() {
-        assertFalse(new QuantityMeasurementApp.Feet(1.0)
-                .equals(new QuantityMeasurementApp.Feet(2.0)));
+    void testEquality_InchToInch_SameValue() {
+        assertTrue(new Quantity(1.0, LengthUnit.INCH)
+                .equals(new Quantity(1.0, LengthUnit.INCH)));
     }
 
     @Test
-    void testFeet_NullComparison() {
-        assertFalse(new QuantityMeasurementApp.Feet(1.0).equals(null));
+    void testEquality_FeetToInch_Equivalent() {
+        assertTrue(new Quantity(1.0, LengthUnit.FEET)
+                .equals(new Quantity(12.0, LengthUnit.INCH)));
     }
 
     @Test
-    void testFeet_SameReference() {
-        QuantityMeasurementApp.Feet f = new QuantityMeasurementApp.Feet(1.0);
-        assertTrue(f.equals(f));
+    void testEquality_InchToFeet_Equivalent() {
+        assertTrue(new Quantity(12.0, LengthUnit.INCH)
+                .equals(new Quantity(1.0, LengthUnit.FEET)));
     }
 
     @Test
-    void testFeet_NonNumericInput() {
-        assertFalse(new QuantityMeasurementApp.Feet(1.0).equals("test"));
-    }
-
-    // ✅ INCHES TESTS (UC2)
-
-    @Test
-    void testInches_SameValue() {
-        assertTrue(new QuantityMeasurementApp.Inches(1.0)
-                .equals(new QuantityMeasurementApp.Inches(1.0)));
+    void testEquality_FeetToFeet_Different() {
+        assertFalse(new Quantity(1.0, LengthUnit.FEET)
+                .equals(new Quantity(2.0, LengthUnit.FEET)));
     }
 
     @Test
-    void testInches_DifferentValue() {
-        assertFalse(new QuantityMeasurementApp.Inches(1.0)
-                .equals(new QuantityMeasurementApp.Inches(2.0)));
+    void testEquality_InchToInch_Different() {
+        assertFalse(new Quantity(1.0, LengthUnit.INCH)
+                .equals(new Quantity(2.0, LengthUnit.INCH)));
     }
 
     @Test
-    void testInches_NullComparison() {
-        assertFalse(new QuantityMeasurementApp.Inches(1.0).equals(null));
+    void testEquality_NullComparison() {
+        assertFalse(new Quantity(1.0, LengthUnit.FEET).equals(null));
     }
 
     @Test
-    void testInches_SameReference() {
-        QuantityMeasurementApp.Inches i = new QuantityMeasurementApp.Inches(1.0);
-        assertTrue(i.equals(i));
+    void testEquality_SameReference() {
+        Quantity q = new Quantity(1.0, LengthUnit.FEET);
+        assertTrue(q.equals(q));
     }
 
     @Test
-    void testInches_NonNumericInput() {
-        assertFalse(new QuantityMeasurementApp.Inches(1.0).equals("test"));
+    void testEquality_InvalidUnit() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Quantity(1.0, null);
+        });
     }
 }
